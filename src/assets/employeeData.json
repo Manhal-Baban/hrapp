@@ -7,7 +7,7 @@
     "phone": "040-1234567",
     "email": "aino.virtanen@example.com",
     "animal": "Owl",
-    "startDate": "2018-04-01",
+    "startDate": "2015-04-01",
     "location": "Helsinki",
     "department": "Human Resources",
     "skills": ["Recruiting", "Communication", "Employee Relations"]
@@ -33,7 +33,7 @@
     "phone": "045-3456789",
     "email": "sara.niemi@example.com",
     "animal": "Fox",
-    "startDate": "2019-09-10",
+    "startDate": "2025-09-10",
     "location": "Tampere",
     "department": "Design",
     "skills": ["Photoshop", "Illustrator", "UI Design"]
