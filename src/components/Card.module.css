@@ -1,10 +1,9 @@
 .card {
   display: flex;
   flex-direction: column;
-  flex-wrap: wrap;
-  justify-content: center;
   text-align: left;
-  min-width: 400px;
+  min-width: 250px; /* smaller width so multiple cards fit side by side */
+  max-width: 300px; /* optional: control max width */
   background-color: white;
   padding: 20px;
   border-radius: 8px;
