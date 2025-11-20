@@ -27,7 +27,9 @@ body {
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 40px;
   padding: 60px 20px;
-  justify-items: center; /* center cards in each column */
+  justify-items: center;
+
+  flex-grow: 1; /* <-- this makes main-content take remaining space */
 }
 
 .card-container {
