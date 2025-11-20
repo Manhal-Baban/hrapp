@@ -23,11 +23,17 @@ body {
 }
 
 .main-content {
-  flex: 1;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 40px;
   padding: 60px 20px;
+  justify-items: center; /* center cards in each column */
+}
+
+.card-container {
+  display: flex; /* use flex layout */
+  flex-wrap: wrap; /* allow cards to move to the next row */
+  gap: 20px; /* space between cards */
+  justify-content: center; /* optional: center the cards horizontally */
+  padding: 20px; /* optional: some spacing around */
 }

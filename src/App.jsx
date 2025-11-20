@@ -5,8 +5,9 @@ import PersonList from "./components/PersonList";
 import About from "./components/About";
 import AddEmployee from "./components/AddEmployee";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import { useState } from "react";
-import employeeData from "./assets/employeeData.json";
+import { useEffect, useState } from "react";
+import employeeData from "./assets/db.json";
+import axios from "axios";
 
 function App() {
   const [employees, setEmployees] = useState(employeeData);
@@ -23,15 +24,24 @@ function App() {
     skills: "",
   });
 
-  const handleClick = (employeeData) => {
-    setEmployees([
-      ...employees,
-      {
-        id: Date.now(),
-        ...employeeData,
-        skills: formData.skills.split(",").map((skill) => skill.trim()),
-      },
-    ]);
+  useEffect(() => {
+    axios.get("http://localhost:3001/employees").then((response) => {
+      setEmployees(response.data);
+    });
+  }, []);
+
+  const handleClick = () => {
+    axios
+      .post("http://localhost:3001/employees", {
+        ...formData,
+        skills: formData.skills
+          ? formData.skills.split(", ").map((skill) => skill.trim())
+          : [],
+        isFavourite: false,
+      })
+      .then((response) => {
+        setEmployees([...employees, response.data]);
+      });
   };
 
   return (
@@ -52,7 +62,7 @@ function App() {
               }
             />
 
-            <Route path="/" element={<PersonList employees={employees} />} />
+            <Route path="/" element={<PersonList />} />
           </Routes>
         </main>
         <Footer />
