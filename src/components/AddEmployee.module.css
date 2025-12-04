@@ -1,73 +1,99 @@
-.addEmployees {
-  max-width: 720px;
-  margin: 10px auto;
-  padding: 24px;
+.card {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 30px;
   background: #fff;
   border-radius: 12px;
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 14px;
 }
 
-h2 {
-  grid-column: 1 / -1;
-  margin-bottom: 12px;
+.card h2 {
+  margin: 0 0 20px 0;
   color: #a1791d;
   text-align: center;
+  font-size: 1.8rem;
+  font-weight: 700;
 }
 
-.card {
-  padding: 8px;
+.form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
 }
 
-.addEmployees h2 {
-  grid-column: 1 / -1;
-  margin: 0 0 8px 0;
-}
-
-.addEmployees label {
+.form label {
   display: block;
   font-weight: 600;
   font-size: 0.95rem;
+  margin-bottom: 6px;
+  color: #333;
 }
 
-.addEmployees input {
+.form input {
   width: 100%;
-  margin-top: 6px;
   padding: 10px 12px;
   border: 1px solid #ddd;
   border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
 }
 
-.addEmployees button[type="submit"] {
-  grid-column: 1 / 2;
+.form input:focus {
+  outline: none;
+  border-color: #1f6feb;
+  box-shadow: 0 0 0 3px rgba(31, 111, 235, 0.1);
 }
 
-.addEmployees button[type="reset"] {
-  grid-column: 2 / 3;
+.form input::placeholder {
+  color: #999;
 }
 
-.addEmployees button {
-  padding: 10px 14px;
-  border: 0;
-  border-radius: 10px;
+.form button {
+  padding: 12px 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: background-color 0.2s, transform 0.1s;
+}
+
+.form button[type="submit"] {
   background: #1f6feb;
   color: white;
-  cursor: pointer;
 }
 
-.addEmployees button[type="reset"] {
-  background: #777;
+.form button[type="submit"]:hover {
+  background: #1557c0;
+  transform: translateY(-2px);
 }
 
-/* mobile */
+.form button[type="reset"] {
+  background: #6c757d;
+  color: white;
+}
+
+.form button[type="reset"]:hover {
+  background: #5a6268;
+  transform: translateY(-2px);
+}
+
+.form button:active {
+  transform: translateY(0);
+}
+
+/* Mobile responsiveness */
 @media (max-width: 640px) {
-  .addEmployees {
-    grid-template-columns: 1fr;
+  .card {
+    padding: 20px;
+    margin: 10px;
   }
-  .addEmployees button[type="submit"],
-  .addEmployees button[type="reset"] {
-    grid-column: 1 / -1;
+
+  .card h2 {
+    font-size: 1.5rem;
+  }
+
+  .form {
+    grid-template-columns: 1fr;
   }
 }
