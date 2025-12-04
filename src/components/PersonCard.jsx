@@ -21,7 +21,11 @@ const Card = (props) => {
     skills,
   });
 
-  const update = (url = "http://localhost:3001", body = {}, headers = {}) => {
+  const update = (
+    url = "https://hrapp-1c1d.onrender.com",
+    body = {},
+    headers = {}
+  ) => {
     axios.patch(url, body, { headers });
   };
 
@@ -34,7 +38,7 @@ const Card = (props) => {
   };
 
   const handleEdit = () => {
-    update(`http://localhost:3001/employees/${id}`, person);
+    update(`https://hrapp-1c1d.onrender.com/employees/${id}`, person);
   };
 
   const renderEditForm = (value, name) => {

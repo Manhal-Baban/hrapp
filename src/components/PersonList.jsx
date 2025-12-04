@@ -6,7 +6,7 @@ export default function PersonList() {
   const [employees, setEmployees] = useState([]);
 
   useEffect(() => {
-    axios.get("http://localhost:3001/employees").then((response) => {
+    axios.get("https://hrapp-1c1d.onrender.com/employees").then((response) => {
       setEmployees(response.data);
     });
   }, []);

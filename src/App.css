@@ -28,7 +28,6 @@ body {
   gap: 40px;
   padding: 60px 20px;
   justify-items: center;
-
   flex-grow: 1; /* <-- this makes main-content take remaining space */
 }
 
