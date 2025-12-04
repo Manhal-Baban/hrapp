@@ -6,11 +6,12 @@ import About from "./components/About";
 import AddEmployee from "./components/AddEmployee";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { useEffect, useState } from "react";
-import employeeData from "./assets/db.json";
-import axios from "axios";
+import useAxios from "./hooks/useAxios";
 
 function App() {
-  const [employees, setEmployees] = useState(employeeData);
+  const { get, post, del, BASE_URL } = useAxios();
+  const [loading, setLoading] = useState(true);
+  const [employees, setEmployees] = useState([]);
   const [formData, setFormData] = useState({
     name: "",
     title: "",
@@ -25,24 +26,41 @@ function App() {
   });
 
   useEffect(() => {
-    axios.get("https://hrapp-1c1d.onrender.com/employees").then((response) => {
-      setEmployees(response.data);
-    });
+    get(BASE_URL)
+      .then((response) => {
+        setEmployees(response.data);
+      })
+      .catch((error) => {
+        console.log("Error: ", error);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   }, []);
 
   const handleClick = () => {
-    axios
-      .post("https://hrapp-1c1d.onrender.com/employees", {
-        ...formData,
-        skills: formData.skills
-          ? formData.skills.split(", ").map((skill) => skill.trim())
-          : [],
-        isFavourite: false,
-      })
-      .then((response) => {
-        setEmployees([...employees, response.data]);
-      });
+    post(BASE_URL, {
+      ...formData,
+      skills: formData.skills
+        ? formData.skills.split(", ").map((skill) => skill.trim())
+        : [],
+      isFavourite: false,
+    }).then((response) => {
+      setEmployees([...employees, response.data]);
+    });
   };
+
+  const handleDeleteEmployee = (id) => {
+    del(`${BASE_URL}/${id}`).then((response) => {
+      setEmployees((prevEmployees) =>
+        prevEmployees.filter((employee) => employee.id !== id)
+      );
+    });
+  };
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <Router>
@@ -61,8 +79,15 @@ function App() {
                 />
               }
             />
-
-            <Route path="/" element={<PersonList />} />
+            <Route
+              path="/"
+              element={
+                <PersonList
+                  employees={employees}
+                  onDelete={handleDeleteEmployee}
+                />
+              }
+            />
           </Routes>
         </main>
         <Footer />
