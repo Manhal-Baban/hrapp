@@ -1,7 +1,7 @@
 # hrapp
 
 A simple React app for managing employees.  
-The frontend is deployed on GitHub Pages and fetches data from a JSON backend (deployed on Render).
+The frontend fetches data from a JSON backend deployed on Render.
 
 ---
 
@@ -11,20 +11,6 @@ The frontend is deployed on GitHub Pages and fetches data from a JSON backend (d
 
 ---
 
-## Frontend Repository
+## Live Backend
 
-[Frontend GitHub Repository](https://github.com/Manhal-Baban/hrapp)
-
----
-
-## Backend Repository
-
-_(Update this with your Render backend repo link)_
-
-[Backend GitHub Repository](https://github.com/Manhal-Baban/hrapp-backend)
-
----
-
-## Backend Live URL
-
-_(Update this with your Render backend live URL)_
+[https://hrapp-1c1d.onrender.com](https://hrapp-1c1d.onrender.com)
