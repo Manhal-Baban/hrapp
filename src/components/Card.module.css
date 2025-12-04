@@ -2,24 +2,145 @@
   display: flex;
   flex-direction: column;
   text-align: left;
-  min-width: 250px; /* smaller width so multiple cards fit side by side */
-  max-width: 300px; /* optional: control max width */
+  min-width: 250px;
+  max-width: 300px;
   background-color: white;
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  min-height: 200px;
+  transition: transform 0.2s, box-shadow 0.2s;
 }
 
-.name {
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.cardHeader {
+  margin-bottom: 12px;
+  border-bottom: 2px solid #a1791d;
+  padding-bottom: 8px;
+}
+
+.cardHeader h2 {
+  font-size: 20px;
   font-weight: bold;
-  font-size: 18px;
-  margin-bottom: 8px;
-  color: #000;
+  color: #2b2b2b;
+  margin: 0 0 8px 0;
 }
 
-.title {
+.noticeCardRed {
+  background-color: #ffebee;
+  border-left: 4px solid #d32f2f;
+  padding: 8px;
+  border-radius: 4px;
+  margin: 8px 0;
+}
+
+.noticeCardRed p {
+  margin: 0;
+  color: #d32f2f;
+  font-weight: 500;
   font-size: 14px;
-  margin-bottom: 4px;
-  color: #000;
+}
+
+.noticeCardGreen {
+  background-color: #e8f5e9;
+  border-left: 4px solid #4caf50;
+  padding: 8px;
+  border-radius: 4px;
+  margin: 8px 0;
+}
+
+.noticeCardGreen p {
+  margin: 0;
+  color: #2e7d32;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.card > p {
+  margin: 6px 0;
+  font-size: 14px;
+  color: #444;
+}
+
+.editableCard {
+  background-color: #f5f5f5;
+  padding: 12px;
+  border-radius: 6px;
+  margin: 12px 0;
+  border: 1px solid #e0e0e0;
+}
+
+.editableCard p {
+  margin: 8px 0;
+  font-size: 14px;
+}
+
+.editableCard input {
+  width: 100%;
+  padding: 6px 8px;
+  margin-top: 4px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.editableCard input:focus {
+  outline: none;
+  border-color: #1f6feb;
+  box-shadow: 0 0 0 2px rgba(31, 111, 235, 0.1);
+}
+
+.card button {
+  margin-top: 8px;
+  padding: 10px 14px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.2s, transform 0.1s;
+}
+
+.card button:first-of-type {
+  background-color: #1f6feb;
+  color: white;
+}
+
+.card button:first-of-type:hover {
+  background-color: #1557c0;
+  transform: scale(1.02);
+}
+
+.card button:nth-of-type(2) {
+  background-color: #6c757d;
+  color: white;
+}
+
+.card button:nth-of-type(2):hover {
+  background-color: #5a6268;
+  transform: scale(1.02);
+}
+
+.card button:last-of-type {
+  background-color: #dc3545;
+  color: white;
+}
+
+.card button:last-of-type:hover {
+  background-color: #c82333;
+  transform: scale(1.02);
+}
+
+.card button:active {
+  transform: scale(0.98);
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .card {
+    min-width: 100%;
+    max-width: 100%;
+  }
 }

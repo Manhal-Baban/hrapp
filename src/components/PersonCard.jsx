@@ -1,17 +1,26 @@
 import styles from "./Card.module.css";
 import animalEmojis from "../assets/animalEmojis.json";
 import { useState } from "react";
-import axios from "axios";
+import useAxios from "../hooks/useAxios";
 
-const Card = (props) => {
+export default function PersonCard({
+  name,
+  title,
+  salary,
+  phone,
+  email,
+  animal,
+  startDate,
+  location,
+  department,
+  skills,
+  id,
+  handleDeleteEmployee,
+}) {
   const yearsEmployed =
-    new Date().getFullYear() - new Date(props.startDate).getFullYear();
+    new Date().getFullYear() - new Date(startDate).getFullYear();
 
-  const salary = props.salary;
-  const location = props.location;
-  const department = props.department;
-  const skills = props.skills;
-  const id = props.id;
+  const { patch, BASE_URL } = useAxios();
 
   const [isEditing, setIsEditing] = useState(false);
   const [person, setPerson] = useState({
@@ -21,12 +30,8 @@ const Card = (props) => {
     skills,
   });
 
-  const update = (
-    url = "https://hrapp-1c1d.onrender.com",
-    body = {},
-    headers = {}
-  ) => {
-    axios.patch(url, body, { headers });
+  const update = (url = BASE_URL, body = {}, headers = {}) => {
+    patch(url, body, { headers });
   };
 
   const handleInputChange = (e) => {
@@ -38,10 +43,10 @@ const Card = (props) => {
   };
 
   const handleEdit = () => {
-    update(`https://hrapp-1c1d.onrender.com/employees/${id}`, person);
+    update(`${BASE_URL}/${id}`, person);
   };
 
-  const renderEditForm = (value, name) => {
+  const renderEditForm = (value, field) => {
     const capitalizeWords = (text) =>
       text
         .toString()
@@ -49,11 +54,23 @@ const Card = (props) => {
           /\w\S*/g,
           (word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
         );
-    const displayValue = value ? capitalizeWords(value) : "N/A";
-    const displayName = name ? capitalizeWords(name) : "N/A";
+
+    const displayValue = value
+      ? Array.isArray(value)
+        ? value.join(", ")
+        : capitalizeWords(value)
+      : "N/A";
+    const displayName = field ? capitalizeWords(field) : "N/A";
 
     return isEditing ? (
-      <input value={value || ""} name={name} onChange={handleInputChange} />
+      <p>
+        {displayName}:
+        <input
+          value={value || ""}
+          name={field.toLowerCase()}
+          onChange={handleInputChange}
+        />
+      </p>
     ) : (
       <p>
         {displayName}: {displayValue}
@@ -63,36 +80,30 @@ const Card = (props) => {
 
   return (
     <div className={styles.card}>
-      <div className={styles.name}>{props.name}</div>
-      <div className={styles.title}>Title: {props.title}</div>
-      <div className={styles.salary}>
-        {" "}
-        {renderEditForm(person.salary, "salary")}
+      <div className={styles.cardHeader}>
+        <h2>{name}</h2>
+        <div className={styles.noticeCardRed}>
+          {yearsEmployed < 0.5 && <p>🔔 Schedule probation review.</p>}
+        </div>
+        <div className={styles.noticeCardGreen}>
+          {yearsEmployed === 5 && <p>🎉 Schedule recognition meeting.</p>}
+          {yearsEmployed === 10 && <p>🎉 Schedule recognition meeting.</p>}
+          {yearsEmployed === 15 && <p>🎉 Schedule recognition meeting.</p>}
+        </div>
       </div>
-      <div className={styles.phone}>Phone: {props.phone}</div>
-      <div className={styles.email}>Email: {props.email}</div>
-      <div className={styles.animal}>Animal: {animalEmojis[props.animal]}</div>
-      <div className={styles.startDate}>Start Date: {props.startDate}</div>
-      <div className={styles.location}>
-        {" "}
-        {renderEditForm(person.location, "location")}
-      </div>
-      <div className={styles.department}>
-        {" "}
-        {renderEditForm(person.department, "department")}
-      </div>
-      <div className={styles.skills}>
-        {" "}
-        {renderEditForm(person.skills, "skills")}
-      </div>
-      <div className={styles.yearsEmployed}>
-        Years Employed: {yearsEmployed}{" "}
-      </div>
+      <p>Title: {title}</p>
+      <p>Phone: {phone}</p>
+      <p>Email: {email}</p>
+      <p>Favorite animal: {animalEmojis[animal] ?? "❓"}</p>
+      <p>Start date: {startDate}</p>
+      <p>Years employed: {yearsEmployed}</p>
 
-      {yearsEmployed == 5 ? "🎉 Schedule recognition meeting." : ""}
-      {yearsEmployed == 10 ? "🎉 Schedule recognition meeting." : ""}
-      {yearsEmployed == 15 ? "🎉 Schedule recognition meeting." : ""}
-      {yearsEmployed < 0.5 ? "🔔 Schedule recognition review." : ""}
+      <div className={styles.editableCard}>
+        {renderEditForm(person.salary, "Salary")}
+        {renderEditForm(person.location, "Location")}
+        {renderEditForm(person.department, "Department")}
+        {renderEditForm(person.skills, "Skills")}
+      </div>
 
       <button
         onClick={() => {
@@ -113,8 +124,16 @@ const Card = (props) => {
           Cancel
         </button>
       )}
+
+      <button
+        onClick={() => {
+          if (window.confirm(`Are you sure you want to delete ${name}?`)) {
+            handleDeleteEmployee(id);
+          }
+        }}
+      >
+        Delete
+      </button>
     </div>
   );
-};
-
-export default Card;
+}
