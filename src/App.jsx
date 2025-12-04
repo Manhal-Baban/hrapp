@@ -25,14 +25,14 @@ function App() {
   });
 
   useEffect(() => {
-    axios.get("http://localhost:3001/employees").then((response) => {
+    axios.get("https://hrapp-1c1d.onrender.com/employees").then((response) => {
       setEmployees(response.data);
     });
   }, []);
 
   const handleClick = () => {
     axios
-      .post("http://localhost:3001/employees", {
+      .post("https://hrapp-1c1d.onrender.com/employees", {
         ...formData,
         skills: formData.skills
           ? formData.skills.split(", ").map((skill) => skill.trim())

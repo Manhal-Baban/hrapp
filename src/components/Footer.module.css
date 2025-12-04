@@ -3,6 +3,7 @@
   border: 2px solid #a1791d;
   border-radius: 8px;
   margin-bottom: 20px;
+  margin-top: auto; /* push it to the bottom */
   text-align: center;
   box-shadow: 16px 16px 32px #bebebe, -16px -16px 32px #ffffff;
 }
