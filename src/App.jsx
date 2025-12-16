@@ -4,9 +4,11 @@ import Header from "./components/Header";
 import PersonList from "./components/PersonList";
 import About from "./components/About";
 import AddEmployee from "./components/AddEmployee";
+import EmployeeTable from "./components/EmployeeTable";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { useEffect, useState } from "react";
 import useAxios from "./hooks/useAxios";
+import { CircularProgress, Box } from "@mui/material";
 
 function App() {
   const { get, post, del, BASE_URL } = useAxios();
@@ -36,7 +38,7 @@ function App() {
       .finally(() => {
         setLoading(false);
       });
-  }, []);
+  }, [get, BASE_URL]);
 
   const handleClick = () => {
     post(BASE_URL, {
@@ -59,7 +61,18 @@ function App() {
   };
 
   if (loading) {
-    return <div>Loading...</div>;
+    return (
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          minHeight: "100vh",
+        }}
+      >
+        <CircularProgress size={60} />
+      </Box>
+    );
   }
 
   return (
@@ -78,6 +91,10 @@ function App() {
                   handleClick={handleClick}
                 />
               }
+            />
+            <Route
+              path="/table"
+              element={<EmployeeTable onDelete={handleDeleteEmployee} />}
             />
             <Route
               path="/"
